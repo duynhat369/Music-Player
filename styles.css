@@ -1,0 +1,295 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(255, 20, 147, 1);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.container {
+  padding: 0 150px;
+}
+
+.tabs {
+  margin: 50px 0;
+}
+
+.tabs .tab-control,
+.tabs .tab-content {
+  margin: 20px 0;
+}
+
+/* Tab control */
+.tabs .tab-control {
+  display: flex;
+  flex-flow: row wrap;
+  position: relative;
+}
+
+.tabs .tab-control .control-item {
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  padding: 10px 20px;
+
+  color: rgb(255, 20, 147, 0.6);
+  cursor: pointer;
+}
+
+.tabs .tab-control .control-item:hover {
+  color: rgb(255, 20, 147, 1);
+  background-color: rgb(255, 20, 147, 0.1);
+}
+
+.tabs .tab-control .control-item:hover::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  border-bottom: 2px solid rgb(255, 20, 147, 0.2);
+}
+
+.tabs .tab-control .active {
+  color: rgb(255, 20, 147, 1);
+}
+
+.tabs .tab-control .active:hover::after {
+  border-bottom: 2px solid rgb(255, 20, 147, 1);
+}
+
+.tabs .tab-control .active::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+
+  border-bottom: 2px solid rgb(255, 20, 147, 1);
+}
+
+.tabs .tab-control .control-item i {
+  margin-right: 5px;
+}
+
+/* line tab */
+.tab-control .tab-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: rgb(255, 20, 147, 1);
+  transition: all 0.2s ease;
+}
+
+/* Tab content */
+.tabs .tab-content {
+  margin: 0 -20px;
+}
+
+.tabs .tab-content .content-item {
+  padding: 20px;
+  display: none;
+}
+
+.tabs .tab-content .active {
+  display: block;
+}
+
+.tabs .tab-content .content-item .heading {
+  margin-bottom: 10px;
+}
+
+.tabs .tab-content .content-item .desc {
+  margin: 10px 0;
+}
+
+/* music */
+.music {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  text-align: center;
+
+  width: 350px;
+  position: relative;
+  margin: 0 auto;
+
+  border: 1px solid rgb(231, 231, 231);
+  box-shadow: 2px 2px 20px #ccc;
+}
+
+.music .music-play {
+  width: 100%;
+  padding: 10px;
+  border: 10px solid white;
+  border-radius: 15px;
+
+  background-color: white;
+  background-image: url("./img/backgroundMusic.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.music .music-play .music-desc {
+  color: rgb(255, 20, 147, 1);
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.music .music-play .music-title {
+  color: rgb(70, 70, 70);
+}
+
+.music .music-play .music-image {
+}
+.music .music-play .music-image img {
+  width: 60%;
+  border-radius: 50%;
+  margin: 20px 0;
+  box-shadow: 0px 0px 10px rgb(68, 68, 68);
+}
+
+.music .music-play .music-control {
+  list-style-type: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.music .music-play .music-control li {
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: rgb(70, 70, 70);
+}
+
+.music .music-play .music-control li:nth-child(3) {
+  font-size: 3rem;
+  color: rgb(255, 20, 147, 1);
+}
+
+.music .icon-pause {
+  display: none;
+}
+.music.playing .icon-pause {
+  display: inline-block;
+}
+.music.playing .icon-play {
+  display: none;
+}
+
+.progress {
+  width: 100%;
+  margin: 10px 0;
+  -webkit-appearance: none;
+  background: rgb(255, 20, 147, 1);
+  opacity: 0.7;
+}
+
+.progress::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 6px;
+  background-color: white;
+  cursor: pointer;
+}
+
+/* play-list */
+.music .play-list {
+  background-color: rgb(241, 241, 241);
+  overflow-y: scroll;
+  height: 270px;
+  width: 100%;
+}
+
+.music .play-list .list-item {
+  display: flex;
+  flex-flow: column wrap;
+  padding: 5px 10px;
+}
+
+.music .play-list .list-item .item {
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  border-radius: 3px;
+  background-color: white;
+
+  margin: 10px 0;
+  padding: 10px;
+
+  cursor: pointer;
+}
+
+.music .play-list .list-item .item:hover {
+  background-color: rgb(255, 20, 147, 0.6);
+}
+
+.music .play-list .list-item .item .img {
+  width: 15%;
+}
+
+.music .play-list .list-item .item .img img {
+  width: 100%;
+  border-radius: 50%;
+  display: flex;
+}
+
+.music .play-list .list-item .item .detail {
+  margin: 0 20px;
+  display: flex;
+  flex-flow: column wrap;
+  text-align: left;
+}
+
+.music .play-list .list-item .item .detail .music-name {
+  color: rgb(61, 61, 61);
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.music .play-list .list-item .item .detail .music-singer {
+  color: rgb(128, 128, 128);
+  font-size: 0.8rem;
+}
+
+.music .play-list .list-item .item .dot {
+  position: absolute;
+  right: 20px;
+}
+
+.music .play-list .list-item .item .dot i {
+  color: rgb(128, 128, 128);
+}
+
+@media (max-width: 1023px) {
+  .tab-control .tab-line {
+    display: none;
+  }
+}
