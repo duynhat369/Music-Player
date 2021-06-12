@@ -30,7 +30,7 @@
 }
 
 .tabs {
-  margin: 50px 0;
+  margin: 20px 0;
 }
 
 .tabs .tab-control,
@@ -128,7 +128,7 @@
   margin: 10px 0;
 }
 
-/* music */
+/********************** Style for Music player *********************/
 .music {
   display: flex;
   flex-flow: column wrap;
@@ -137,7 +137,7 @@
 
   width: 350px;
   position: relative;
-  margin: 0 auto;
+  margin: 50px auto;
 
   border: 1px solid rgb(231, 231, 231);
   box-shadow: 2px 2px 20px #ccc;
@@ -228,7 +228,7 @@
   cursor: pointer;
 }
 
-/* play-list */
+/********************** Style for play list *********************/
 .music .play-list {
   background-color: rgb(241, 241, 241);
   overflow-y: scroll;
@@ -338,10 +338,6 @@
     padding: 0 20px;
   }
 
-  .tabs {
-    margin: 20px 0;
-  }
-
   .tab-control .tab-line {
     display: none;
   }
@@ -368,4 +364,89 @@
   .music {
     width: 290px;
   }
+}
+
+/********************** Style for validation form *********************/
+.tab-content .content-item .layout {
+  width: 450px;
+
+  padding: 1.8rem 1.6rem;
+  margin: 50px auto;
+  /* border: 1px solid #bbb; */
+  border-radius: 5px;
+
+  box-shadow: 0 0 20px #bbb;
+}
+
+.tab-content .content-item .layout form {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+.tab-content .content-item .layout form .heading {
+  font-weight: bold;
+  font-size: 1.6rem;
+  color: #555;
+}
+
+.tab-content .content-item .layout > form .desc {
+  margin-bottom: 1.6rem;
+  color: rgb(255, 20, 147, 1);
+}
+
+.tab-content .content-item .layout form .form-group {
+  width: 100%;
+
+  display: flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+
+  margin: 0.5rem 0;
+}
+
+.tab-content .content-item .layout form .form-group .form-label {
+  color: #555;
+  margin-bottom: 0.6rem;
+}
+
+.tab-content .content-item .layout form .form-group input {
+  width: 100%;
+  padding: 0.8rem;
+
+  outline: none;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.tab-content .content-item .layout form .form-group input::placeholder {
+  color: #ccc;
+}
+
+.tab-content .content-item .layout form .form-group input:hover {
+  border: 1px solid rgb(255, 20, 147, 0.5);
+}
+
+.tab-content .content-item .layout form .form-group .form-message {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 5px;
+}
+.tab-content .content-item .layout form .form-submit {
+  width: 100%;
+  color: white;
+  background-color: rgb(255, 20, 147, 0.8);
+  cursor: pointer;
+
+  padding: 0.8rem 0.5rem;
+  border: none;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.tab-content .content-item .layout form .invalid input,
+.tab-content .content-item .layout form .invalid input:hover {
+  border-color: rgb(226, 0, 0);
+}
+
+.tab-content .content-item .layout form .invalid .form-message {
+  color: rgb(226, 0, 0);
 }
