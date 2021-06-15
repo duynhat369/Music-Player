@@ -6,9 +6,9 @@ function Validator(options) {
 
   //Hàm thực hiện validate
   function validate(inputElement, rule) {
-    const errorElement = inputElement.parentElement.querySelector(
-      options.errorSelector
-    );
+    const errorElement = inputElement
+      .closest(options.formGroupSelector)
+      .querySelector(options.errorSelector);
 
     let errorMessage;
     //Lấy ra các rules của selector
@@ -17,7 +17,17 @@ function Validator(options) {
     //lặp qua các rules và kiểm tra
     //nếu có lỗi thì dừng việc kiểm tra để tra về rule lỗi
     for (let i = 0; i < rules.length; i++) {
-      errorMessage = rules[i](inputElement.value);
+      switch (inputElement.type) {
+        case "radio":
+        case "checkbox":
+          errorMessage = rules[i](
+            formElement.querySelector(rule.selector + ":checked")
+          );
+          break;
+        default:
+          errorMessage = rules[i](inputElement.value);
+      }
+
       if (errorMessage) {
         break;
       }
@@ -25,10 +35,12 @@ function Validator(options) {
 
     if (errorMessage) {
       errorElement.innerHTML = errorMessage;
-      inputElement.parentElement.classList.add("invalid");
+      inputElement.closest(options.formGroupSelector).classList.add("invalid");
     } else {
       errorElement.innerHTML = "";
-      inputElement.parentElement.classList.remove("invalid");
+      inputElement
+        .closest(options.formGroupSelector)
+        .classList.remove("invalid");
     }
 
     return !errorMessage;
@@ -60,7 +72,28 @@ function Validator(options) {
 
           const formValues = Array.from(enableInputs).reduce(
             (values, input) => {
-              return (values[input.name] = input.value) && values;
+              switch (input.type) {
+                case "radio":
+                  values[input.name] = formElement.querySelector(
+                    "input[name='" + input.name + "']:checked"
+                  ).value;
+                  break;
+                case "checkbox":
+                  if (!Array.isArray(values[input.name])) {
+                    values[input.name] = [];
+                  }
+                  if (!input.matches(":checked")) {
+                    return values;
+                  }
+                  values[input.name].push(input.value);
+                  break;
+                case "file":
+                  values[input.name] = input.files;
+                  break;
+                default:
+                  values[input.name] = input.value;
+              }
+              return values;
             },
             {}
           );
@@ -76,8 +109,6 @@ function Validator(options) {
 
     //Xử lí lặp qua mỗi rule
     options.rules.forEach((rule) => {
-      const inputElement = formElement.querySelector(rule.selector);
-
       //Lưu lại các rules cho mỗi input
       if (Array.isArray(selectorRules[rule.selector])) {
         selectorRules[rule.selector].push(rule.test);
@@ -85,21 +116,24 @@ function Validator(options) {
         selectorRules[rule.selector] = [rule.test];
       }
 
-      //xử lí blur khỏi input
-      if (inputElement) {
+      const inputElements = formElement.querySelectorAll(rule.selector);
+
+      Array.from(inputElements).forEach((inputElement) => {
+        //xử lí blur khỏi input
         inputElement.onblur = () => {
           validate(inputElement, rule);
         };
-      }
-
-      //xử lí khi người dùng nhập vào input
-      inputElement.oninput = () => {
-        const errorElement = inputElement.parentElement.querySelector(
-          options.errorSelector
-        );
-        errorElement.innerHTML = "";
-        inputElement.parentElement.classList.remove("invalid");
-      };
+        //xử lí khi người dùng nhập vào input
+        inputElement.oninput = () => {
+          const errorElement = inputElement
+            .closest(options.formGroupSelector)
+            .querySelector(options.errorSelector);
+          errorElement.innerHTML = "";
+          inputElement
+            .closest(options.formGroupSelector)
+            .classList.remove("invalid");
+        };
+      });
     });
   }
 }
@@ -112,7 +146,7 @@ Validator.isRequired = (selector, message) => {
   return {
     selector,
     test: function (value) {
-      return value.trim() ? undefined : message || "Can not be empty";
+      return value ? undefined : message || "Can not be empty";
     },
   };
 };
@@ -153,23 +187,26 @@ Validator.isConfirmPassword = function (selector, getConfirmValue, message) {
 
 Validator({
   form: "#form-1",
+  formGroupSelector: ".form-group",
   errorSelector: ".form-message",
   rules: [
-    Validator.isRequired("#fullname"),
-    Validator.isRequired("#email", "Can not be empty"),
-    Validator.isEmail("#email"),
-    Validator.isRequired("#password", "Can not be empty"),
-    Validator.isPassword("#password", 6),
-    Validator.isRequired("#confirmPassword", "Can not be empty"),
-    Validator.isConfirmPassword(
-      "#confirmPassword",
-      () => {
-        return document.querySelector("#form-1 #password").value;
-      },
-      "Confirm password is not match"
-    ),
+    // Validator.isRequired("#fullname"),
+    //Validator.isRequired("input[name='gender']", "Can not be empty"),
+    // Validator.isRequired("#avatar"),
+    // Validator.isRequired("#email", "Can not be empty"),
+    // Validator.isEmail("#email"),
+    // Validator.isRequired("#password", "Can not be empty"),
+    // Validator.isPassword("#password", 6),
+    // Validator.isRequired("#confirmPassword", "Can not be empty"),
+    // Validator.isConfirmPassword(
+    //   "#confirmPassword",
+    //   () => {
+    //     return document.querySelector("#form-1 #password").value;
+    //   },
+    //   "Confirm password is not match"
+    // ),
   ],
-  // onSubmit: (data) => {
-  //   console.log(data);
-  // },
+  onSubmit: (data) => {
+    console.log(data);
+  },
 });
