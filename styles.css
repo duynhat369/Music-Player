@@ -425,6 +425,20 @@
   border: 1px solid rgb(255, 20, 147, 0.5);
 }
 
+.tab-content .content-item .layout form .form-radio {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 0 0.8rem;
+}
+
+.tab-content .content-item .layout form .form-radio .radio-item {
+  margin-right: 1.6rem;
+  color: #666;
+}
+.tab-content .content-item .layout form .form-radio .radio-item .form-control {
+  width: 20px;
+}
+
 .tab-content .content-item .layout form .form-group .form-message {
   font-size: 0.8rem;
   color: #666;
